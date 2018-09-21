@@ -1,0 +1,402 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools,sansmath,wasysym}
+\usepackage{cleveref}
+\usepackage{tikz-cd}
+\usepackage{url}
+
+%Commands
+\newcommand{\contradiction}{\lightning}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\J}{\mathfrak{J}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\p}{\mathfrak{p}}
+\newcommand{\nr}{\mathfrak{N}}
+\newcommand{\im}{\mathrm{im}}
+\makeatletter
+\def\fall#1{\forall #1\@ifnextchar\bgroup{\,,\fall}{:\,}}
+\makeatother
+\renewcommand{\S}[1]{\mathbb{S}^{#1}}
+\newcommand{\T}[1]{\mathbb{T}^{#1}}
+\newcommand{\inv}[1]{{#1}^{-1}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\pr}{\mathrm{pr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\foukof}[1]{\hat{\varphi}_{{#1}}}
+\newcommand{\e}[1]{\mathsf{e}^{#1}}
+\renewcommand{\i}{\mathsf{i}}
+\newcommand{\claim}
+{\underline{\textit{Claim:}}\hspace{0,2cm}}
+\newcommand{\subclaim}[1]
+{
+
+	\vspace*{0,2cm}
+	\textit{Claim}({#1}):
+}
+\newcommand{\subqed}[1]{\hfill\textsf{qed}({#1})}
+\newcommand{\subproof}{
+
+\noindent\textit{proof}.\hspace{0,1cm}
+}
+%Aufgaben-Command
+\newcommand{\aufgabe}[1]{
+{
+	\vspace*{0.5cm}
+	\noindent\textsf{\textbf{Exercise #1}}
+	\vspace*{0.2cm}
+
+}
+}
+%unteraufgabe
+\newcommand{\unteraufgabe}[1]{
+{
+	\textsf{(#1)}
+}
+}
+%Teilaufgabe
+\newcommand{\teilaufgabe}[1]{
+{       
+
+	\noindent\hspace*{0,1 cm}\textbf{#1)}
+}
+}
+
+\newcommand{\induktionsanfang}{
+{
+	\vspace*{0.1cm}
+	\noindent
+	\textsf{Induktionsanfang:}
+}
+}
+
+\newcommand{\induktionsschritt}{
+{
+	\vspace*{0.1cm}
+	\noindent
+	\textsf{Induktionsschritt:}
+}
+}
+%Umgebungen
+\newtheorem{thm}{Theorem}[section] 
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem*{silentdefn}{Definition}
+\newtheorem*{silentthm}{Theorem}
+\newtheorem*{silentlem}{Lemma}
+\theoremstyle{plain}
+\newtheorem{cor}[thm]{Korollar}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{propo}[thm]{Proposition}
+\newtheorem{axiom}[thm]{Axiom}
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{example}[thm]{Example}
+
+\title{Homework Nr.1}
+\author{Philipp Stassen}
+\begin{document}
+\maketitle
+\section*{7.1}
+\aufgabe{26} Let $K$ be a field and $\nu:K^{\times}\rightarrow\Z$ be a discrete valuation on $K$. Let $R = \{x\in K^{\times} | v(x) \geq 0\}$.
+
+\teilaufgabe{a} \claim $R$ is a subring of $K$ which contains the identity.
+\begin{proof}
+	It suffices to show that $R$ is closed under \textit{addition}, \textit{multiplikation} and \textit{additive inverses} as well as that it contains $0$ and $1$. Properties as commutativity of $+$ and $\cdot$, associativity or distributivity are all valid as $R \subset K$ and $K$ is a field.
+\begin{enumerate}
+	\item $R$ is closed under \textit{addition}:
+		Let $x,y\in R$. \\
+		\textbf{Case 1:} $x+y \neq 0$. Then $\nu(x)\geq 0$ and $\nu(y)\geq 0$. 
+		Hence, $\nu(x+y)\geq \min\{\nu(x),\nu(y)\}\geq 0$. Therefore, $x+y\in R$. \\
+		\textbf{Case 2:} $x+y = 0$. This is trivial as $0\in R$.
+	\item $R$ is closed unter \textit{multiplikation}:\\
+		Let $x,y\in R$ then $\nu(x)\geq 0$ and $\nu(y)\geq 0$. 
+		We have that $\nu(xy) = \nu(x) + \nu(y) \geq 0$. Therefore, $xy\in R$.
+	\item $R$ contains $0$.
+	\item $R$ contains $1$:
+		$\nu (a) = \nu (a 1) = \nu(a) +\nu(1)$. Therefore, $\nu(1) = 0$ and $1\in R$.
+	\item $R$ is closed under building \textit{additive inverses}: \\
+		Observe that we have for any $x\in R$
+		\begin{align}
+			0 &= x \cdot 0 = x \cdot (1 + (-1)) = x\cdot 1 + x\cdot (-1) \\
+			\Longleftrightarrow  -x &= (-1)\cdot x
+		\end{align}
+		and by in particular $1=-(-1)= (-1)\cdot (-1)$.
+		Furthermore, it is
+		\begin{align}
+			0=\nu(1) = \nu((-1)\cdot (-1)) = 2\nu(-1)
+		\end{align}
+		Therefore, $\nu(-1)=0$.
+		Now we can conclude that for any $x\in K$ holds $\nu(-x) = \nu(x\cdot (-1)) = \nu(x) + \nu(-1) = \nu(x)$. Hence, if $x\in R$ then also $-x\in R$.
+\end{enumerate}
+\end{proof}
+\teilaufgabe{b} \claim For every nonzero element $x\in K$ either $x$ or $x^{-1}$ is in $R$.
+\begin{proof}
+	Let $x\in K^{\times}$, as $K$ is a field every nonzero element is a unit. As $\nu$ is a discrete valuation we have
+	\begin{align}
+		0 = \nu(1) = \nu (x \cdot x^{-1}) = \nu(x) + \nu(x^{-1})
+	\end{align}
+	Hence, $\nu(x) = - \nu(x^{-1})$ and $\nu(x)\geq 0$ or $\nu(\inv{x})\geq0$. This implies that either $x\in R$ or $\inv{x}\in R$.
+\end{proof}
+\teilaufgabe{c} $x\in R$ is a unit iff $\nu(x) =0$.
+\begin{proof}
+	''$\Longrightarrow$'' Let $x\in R$ be a unit. Then there is $b\in R$ such that $xb = 1$. We have that $\nu(x)\geq 0$ and $\nu(b)\geq 0$ as $x,b\in R$.
+
+	Furthermore,
+	\begin{align}
+		0 = \nu(1) = \nu(xb) = \nu(x) +\nu(b).
+	\end{align}
+	This implies that $\nu(x)=\nu(b)=0$.
+
+
+	''$\Longleftarrow$'' Let $\nu(x) = 0$. We have that 
+	\begin{align}
+		0=\nu(1)=\nu(x\cdot\inv{x})=\nu(x)+\nu(\inv{x}) =\nu(\inv{x}).
+	\end{align}
+	Hence, $\nu(\inv{x})\geq 0$ and $\inv{x}\in R$. This makes $x$ a unit of $R$.
+\end{proof}
+\section*{Chapter 7.4}
+\aufgabe{37} 
+Let $R$ be a local ring. Let $\m$ be the maximal ideal of $R$.
+
+\claim Every element of $R-\m = \{r\in R| r \notin \m\}$ is a unit.
+\begin{proof}
+	Assume $r\in R$ is a nonunit and $r\notin \m$. Then the ideal that is generated from $\m$ and $r$ - lets call it $M$ - is strict larger than $\m$ (as it contains $r$) but also $M\subsetneq R$ as $1\notin M$.
+	This contradicts the maximality of $\m$.
+\end{proof}
+	Let $M = \{r\in R| r \text{ is not a unit}\}$ be the ideal of nonunit forms. 
+	\claim $M$ is the unique maximal ideal in $R$.
+\begin{proof}
+	Assume there is an ideal $\m \supsetneq M$ then there exists $r\in \m$ such that $r\notin M$. Hence, $r$ is a unit and $1\in \m$. Therefore, $\m = R$ and $\m$ is not a proper ideal. This implies that $M$ is a maximal ideal. 
+
+	$M$ is also unique, as any proper ideal $I \subsetneq R$ is also contained in $M$. If there was an Ideal $I \nsubseteq M$ then by the same argument as before we already have $I = R$. 
+\end{proof}
+\aufgabe{40}
+\begin{silentlem}
+	Let $\p\subsetneq R$ be a prime ideal then $\nr(R)\subseteq \p$.
+\end{silentlem}
+\begin{proof}
+	Let $r \in \nr(R)$ and $n\in\N$ such that $0= r^n = r^{n-1}r$, we want to show that $r\in \p$. As $r^n = 0 \in \p$ we have that either $r\in\p$ or $r^{n-1}\in\p$. Wlog $r^{n-1}\in\p$ (otherwise we are done). Now we can induct on $n\in\N$ eventually showing that $r\in\p$.
+\end{proof}
+
+\claim Let $R$ be a commutative Ring and let $\nr(R)$ be the nilradical of $R$. The following are equivalent:
+\begin{enumerate}
+	\item $R$ has exactly one prime ideal
+	\item every element of $R$ is either nilpotent or a unit.
+	\item $R/\nr(R)$ is a field
+\end{enumerate}
+\begin{proof}
+	''$(i) \Longrightarrow (ii)$'' Let $\p\subsetneq R$ be the only prime ideal. 
+
+	We know that $\nr(R) = \bigcap_{\mathfrak{q}\text{ prime}}\mathfrak{q}$\footnote{DF §15.2 Proposition 12}. Hence, $\nr(R)=\p$. Furthermore, every proper ideal is contained in a maximal ideal\footnote{DF §7.4 Proposition 11}. Hence, we have $\p \subseteq \m$. As every maximal ideal in a commutative ring is prime\footnote{DF §7.4 Corollary 14} we must have $\p = \m$.
+	Now we can conclude that either $r \in \nr(R)$, i.e. $r$ is nilpotent, or $r\in R - \nr(R)$, i.e. $r$ is a unit, (by exercise 37).
+
+	''$(ii)\Longrightarrow (iii)$'' Let every element of $R$ be either nilpotent or a unit. $\nr(R)$ is an ideal. It is also maximal as every proper superset of $\nr(R)$ contains a unit. Hence, $R/\nr(R)$ is a field\footnote{DF §7.4 Proposition 12}.
+
+	''$(iii)\Longrightarrow (i)$'' Let $R/\nr(R)$ be a field. Then $\nr(R)$ is a maximal ideal\footnote{DF §7.4 Proposition 12}. Let $\p$ be a prime ideal then $\nr(R)\subseteq \p$ and as $\nr(R)$ is maximal we have $\p=\nr(R)$. 
+	Therefore $\nr(R)$ is the only prime ideal of $R$.
+\end{proof}
+\section*{Chapter 15.1}
+\aufgabe2
+\teilaufgabe{a} Let $R$ denote the Ring of continuous, real-valued functions on $[0,1]$. \claim $R$ is not noetherian.
+\begin{proof}
+	We define the sequence of ideals 
+	\begin{align}
+		I_n :=\{f\in R | f(x) = 0, \,\fall{x\leq\frac{1}{n}}\}
+	\end{align}
+	\subclaim1 Every $I_n$ is an ideal.
+
+	We need to show that
+\begin{enumerate}
+	\item $I_n$ is nonempty and $\fall {x,y\in I}x-y\in I$ 
+		\subproof Take $f,g \in I_n$ then $\fall{x\leq\frac{1}{n}}(f-g)(x) = 0$. Hence, $f-g \in I_n$.
+	\item $\fall{x\in I}{r\in R}r\cdot x\in I$ 
+		\subproof Take $f\in I_n$ and $r\in R$. Then $(f\cdot r) (x) = f (x) r(x)$. As $f(x) = 0 $ for all $x\leq \frac{1}{n}$ we also have that $f(x) r(x) = 0$ for all $x\leq \frac{1}{n}$. Hence, $(f\cdot r) \in I_n$. \qed(1)
+\end{enumerate}
+
+	Furthermore, for all $m,n\in \N$ with $m < n$ we have that $I_m \subsetneq I_n$. 
+	Hence, $I_0\subsetneq I_1 \subsetneq ... \subsetneq$. is an infinite ascendig chain of ideals that is not eventually constant.
+\end{proof}
+\teilaufgabe{b} Let $X$ be any infinite set and let $R=\{f:X \rightarrow \Z/2\Z\}$ denote the Ring of all functions from $X$ to $\Z/2\Z$.
+\claim $R$ is not noetherian.
+\begin{proof}
+	As $X$ is infinite we have an injection $\iota: \N \hookrightarrow X$.
+	Now we can define the ideals
+	\begin{align}
+		I_n:=\{f\in R | f(\iota(m))=0,\,\fall{m \geq n}\}
+	\end{align}
+	\subclaim1 Every $I_n$ is an ideal.
+
+	We need to show that
+\begin{enumerate}
+	\item $I_n$ is nonempty and $\fall {x,y\in I}x-y\in I$
+		\subproof Take $f,g \in I_n$ then $\fall{m\geq n}(f-g)(\iota(m)) = 0$. Hence, $f-g \in I_n$.
+	\item $\fall{x\in I}{r\in R}r\cdot x\in I$
+		\subproof Take $f\in I_n$ and $r\in R$. Then $(f\cdot r) (\iota(m)) = f (\iota(m)) r(\iota(m))$. As $f(\iota(m)) = 0 $ for all $m \geq n$ we also have that $f(\iota(m)) r(\iota(m)) = 0$ for all $m\geq n$. Hence, $(f\cdot r) \in I_n$. \subqed1
+\end{enumerate}
+
+	 we have that each $I_n$ is an ideal and that $A_0 \subsetneq ... \subsetneq ...$ is an ascending chain of ideals that is not eventually constant.
+\end{proof}
+\aufgabe3 \claim Let $K$ be a field. $K(x)$ is not a finitely generated $k$-algebra.
+\begin{proof}
+	Let $g_1,...,g_n\in K(x)$ with $g_i = \frac{P_i}{Q_i}$ and $P_i,Q_i\in K[X]$ be a finite set of generators. Define $d := \prod_{i\leq n}Q_i$. Then we have for each $g_i$ that $g_i \in K[X,d^{-1}]$ as 
+	\begin{align}
+		g_i = \frac{P_i\cdot\prod_{j\neq i}Q_i}{\inv{d}}
+	\end{align}
+	with $P_i\cdot\prod_{j\neq i}Q_i\in K[X]$. Hence, $K[g_1,...,g_n]\subset K[X,\inv{d}]$. 
+	
+	Notice, that $K[X]$ contains infinitely many irreducible polynoms. This can be easily concluded from the fact that $K[X]$ contains infinitely many primes\footnote{similar to euclids proof for the conjecture that there are infinitely many primes in $\Z$}
+
+	Hence, we can take an irreducible polynomial $R\in K[X]$ such that $R\nmid d$. 
+
+	\subclaim1 $\frac{1}{R} \notin K[X,d]$.
+
+	Note that - by taking the greatest common divisor - each $p\in K[X,\inv{d}]$ is of the form 
+	\begin{align}
+		p = P + p_n d^{-n} + ... + p_0 = P Qd^{-n}
+	\end{align}
+	with $PQ \in K[X]$. 
+	Assume we had 
+	\begin{align}
+		\frac{1}{R} = \frac{PQ}{d^n}.
+	\end{align}
+	Hence, $1 = PQ \frac{R}{d^n}$. However, since $R$ is irreducible and $R\nmid d$ this is not possible. 
+
+\end{proof}
+\aufgabe4
+\aufgabe5
+Let $M$ be a noetherian $R$-module and $\varphi: M\rightarrow M$ an $R$-module endomorphism of $M$.
+\begin{silentlem}
+	Let $M,N$ be $R$-modules and $\varphi:M\rightarrow N$ a $R$-module-morphism. Then $\ker(\varphi)$ is a submodule of $M$.
+\end{silentlem}
+\begin{proof}
+	We need to verify that $\ker(\varphi)$ is nonempty and $\fall{x,y\in\ker(\varphi)}{r\in R}x+ry\in \ker(\varphi)$. Clearly $\ker(\varphi) \neq \emptyset$ as $0\in \ker(\varphi)$. Now let $x,y\in \ker(\varphi)$ and $r\in R$. We have that $\varphi(x)=\varphi(y)=0$. Hence, $\varphi(x+ry) = \varphi(x)+r\varphi(y) = 0 +r0 = 0$. Therefore $x+ry \in \ker(\varphi)$.
+\end{proof}
+\claim There is an $n\in \N$ such that $\ker(\varphi^n)\cap \im(\varphi^n) = 0$.
+\begin{proof}
+	As $\varphi(0)=0$ and we have that $\ker(\varphi) \subset \ker(\varphi^2)\subset ..$ is an increasing chain of submodules. As $M$ is noetherian it is eventually constant and there exists $N\in \N$ such that $\ker(\varphi^N)=\ker(\varphi^m)$ for all $m\geq N$.
+
+	In particular $\ker(\varphi^N)=\ker(\varphi\circ\varphi^N)$. 
+	Hence, $\ker(\varphi\restriction_{\im(\varphi^N)})=0$ and $\varphi\restriction_{\im(\varphi^N)}$ is injective. Hence, if $x\in\im(\varphi^{N+1})$ and $\varphi(x)= 0$ then $x = 0$. This implies that $\im(\varphi^{N+1})\cap \ker(\varphi^{N+1})=0$.
+\end{proof}
+\claim If $\varphi$ is surjective then $\varphi$ is an isomorphism.
+\begin{proof}
+	If $\varphi: M\rightarrow M$ is surjective then so is $\varphi^n$ for any $n\in\N$. As before we have $N\in\N$ such that $\varphi\restriction_{\im(\varphi^N)}$ is injective. Considering that $\varphi^N$ is surjective we can conclude that $\im(\varphi^N) = M$ and therefore $\varphi\restriction_{\im(\varphi^N}=\varphi$ is both, surjective and injective, and thus an isomorphism.
+\end{proof}
+\aufgabe6
+Consider the $R$-modules $M,M',M''$ and the following exact sequence; I will refer to it as $\mathcal{S}$ from now on.
+\begin{figure}[h]
+\centering
+\begin{tikzcd}[row sep=5em, column sep = 2em]
+	0
+	\arrow[r,""]
+		&M'
+		\arrow[r,"f"]
+			&M
+			\arrow[r,"g"]
+				&M''
+				\arrow[r,""]
+					&0
+\end{tikzcd}
+\end{figure}
+
+\claim $M$ is a noetherian $R$-module iff $M'$ and $M''$ are noetherian $R$-modules.
+\begin{proof}
+''$\Longrightarrow$'' Let $M$ be a noetherian $R$-module. 
+
+Let $M'_1\subseteq M'_2 \subseteq ...$ be an increasing sequence of submodules of $M'$. Then $f(M'_1)\subseteq f(M'_2)\subseteq ...$ is an increasing sequence of submodules of $M$. As $M$ is noetherian there exists $N\in \N$ such that $f(M'_N)=f(M'_m)$ for all $m\geq n$. As $f$ is injective we also have $M'_N = M'_m$ for all $m\geq N$. Hence, the (arbitrary) sequence of $R$-submodules in $M'$ is eventually constant and thus $M'$ noetherian.\smallskip
+
+Let $M''_1\subseteq M''_2\subseteq ...$ be an increasing sequence of $R$-submodules of $M''$. It follows that $\inv{g}(M''_1)\subseteq\inv{g}(M''_2)\subseteq ...$ is an increasing sequence $R$-submodules of $M$. As $M$ is noetherian the latter one is eventually constant, lets say from index $N$ onwards. As $g$ is surjective we have that $g(\inv{g}(M''_i)=M''_i$. Hence, we can conclude that $M''_1\subseteq M''_2\subseteq ...$ is constant from $N$ onwards as well. 
+
+\subqed{$\Rightarrow$}
+
+''$\Longleftarrow$'' Let $M'$ and $M''$ be noetherian $R$-modules.
+
+Let $M_1\subseteq M_2 \subseteq ...$ be an increasing sequence of submodules of $M$.
+This implies that $\inv{f}(M_1)\subseteq ...$ is an increasing sequence in $M'$ and $g(M_1)\subseteq$ is an increasing sequence in $M''$. The latter ones are eventually constant as $M'$ and $M''$ are noetherian; let us assume from index $N'$ resp. $N''$ onwards. We define $N:=\max(N',N'')$. If we prove that $M_n\subseteq M_N$ for any $n\in\N$ we can conclude that $M_1\subseteq ...$ is eventually constant and thus $M$ noetherian (as the sequence was arbitrary).
+\begin{figure}[ht]
+\centering
+\begin{tikzcd}[row sep=2em, column sep = 3em, elementof/.style = {draw=none,"\in" description,sloped}, contained/.style = {draw=none,"\subseteq" description,sloped}]
+		&y
+		\ar[d,elementof]\\
+	\inv{f}(M_N)
+	\ar[equal]{d}
+	\arrow[r,hook,"f"]
+		&M_N
+		\arrow[r,two heads,"g"]
+		\ar[d,contained]
+			&g(M_N) 
+			\ar[equal]{d} \\
+	\inv{f}(M_n)
+	\arrow[r,hook,"f"]
+		&M_n
+		\arrow[r,two heads,"g"]
+			&g(M_n) \\
+	\inv{f}(x-y)
+	\ar[u,elementof]
+		&x
+		\ar[u,elementof]
+\end{tikzcd}
+\caption{}\label{Ex.6Diagram}
+\end{figure}
+
+Let $x\in M_n$. As $g\restriction_{M_N} \twoheadrightarrow g(M_n)$ there exists $y\in M_N$ such that $g(y) = g(x)$ (see also \cref{Ex.6Diagram}). It follows that $x-y\in \ker(g)\cap M_n$. As $\mathcal{S}$ is exact we have that $x-y\in\im(f)\cap M_n$ and thus may consider $f^{-1}(x-y)\in M_n = M_N$. As $f$ is injective we have that $f(\inv{f}(x-y))= x-y \in M_N$. But this means that $x = y + (x-y) \in M_N$ and as $x\in M_n$ was arbitrary we can conclude $M_n\subset M_N$.
+\end{proof}
+
+\aufgabe{11}
+Let $R$ be a commutative ring in which all prime ideals are finitely generated.
+\teilaufgabe{a} \claim If the collection of ideals that are not finitely generated is nonempty, then it contains a maximal element $I$. Then $R/I$ is a noetherian ring.
+\begin{proof}
+	Let $L:=\{J\subset R | J \text{ is an not f.g. ideal}\}$. We want to use the \emph{Lemma of Zorn} to deduce that $L$ possesses a maximal element. Clearly $L$ is partially ordered by $\subset$. We need to find an upper bound in $L$ for every chain in $L$. Let $J_1\subset J_2 \subset ...$ be a chain in $L$. Clearly $\bigcup_{i>0}J_i$ is an upper bound; it remains to show that $\bigcup_{i>0}J_i\in L$.  
+	\subclaim1 $\bigcup_{i>0}J_i$  is an ideal.
+	\subproof Take $x,y\in \bigcup_{i>0}J_i$ then there is an $n\in \N$ such that $x,y\in J_n$. Hence, $x-y\in J_n \subset \bigcup_{i>0}J_1$.
+	
+	Furthermore, let $x\in \bigcup_{i>0}J_i$ and $r\in R$. Again there exists $n\in \N$ such that $x\in J_n$. Hence, $r\cdot x \in J_n\subset \bigcup_{i>0}J_i$. \subqed1
+	\subclaim2 $\bigcup_{i>0}J_i$ is not finitely generated, i.e. $\bigcup_{i>0}J_i\in L$.
+	\subproof Assume $\bigcup_{i>0}J_i$ was finitely generated by the generators $g_1,..,g_m$. Take $n\in\N$ such that $g_1,...,g_m \in J_n$. But this implies that $J_n\subseteq\bigcup_{i>0}J_i\subseteq J_n$ and $J_n$ would be finitely generated. Hence, $J_n\notin L$. \contradiction \subqed2
+
+	By \emph{Zorn's Lemma} we can conclude that $L$ possesses a maximal element; let us call it $I$.
+
+	As $I$ is an ideal and $R$ a ring we have a canonical Ringhomorphism $\phi:R\twoheadrightarrow R/I$ that provides a Ring structure on $R/I$.
+	Now let $J\subseteq R/I$ be a non-trivial ideal. Then $\inv{\phi}(J) \supset I$. As $I$ is maximal in $L$ we have that $\inv{\phi}(J)$ is either finitely generated or equal to $I$. However, $\inv{\phi}(J)$ is not possible as then $J = (0)$ would be trivial. Hence, $\inv{\phi}(J)$ must be f.g. and therefore also $J$ is. 
+	As every ideal of $R/I$ is finitely generated we have that $R/I$ is noetherian.
+\end{proof}
+	\teilaufgabe{b}\claim There are f.g. ideals $J_1$ and $J_2$ such that $J_{1/2}\supseteq I$ and $J_1J_2\subseteq I$.
+\begin{proof}
+	We know that $I$ is not a prime ideal as any prime ideal in $R$ is finitely generated. Hence, we can find $x,y\in R$ such that $x,y\notin I$ but $xy\in I$. Let $\mathfrak{J}_x:= (\phi(x))_{R/I}$ denote the $R/I$-ideal generated by $\phi(x)$.
+	We define $J_1 := \inv{\phi}(\mathfrak{J}_x)$ and $J_2 := \inv{\phi}(\mathfrak{J}_{y})$. As $x,y\notin I$ we have that $J_1,J_2\supseteq I$. 
+	\subclaim1 $\mathfrak{J}_x\mathfrak{J}_y = (\phi(xy))_{R/I}$
+	\subproof 
+	\begin{align}
+		\mathfrak{J}_x\mathfrak{J}_y 	&= \{\sum_{i\leq n}a_ib_i|a_i\in \mathfrak{J}_x \wedge b_i\in \mathfrak{J}_y\} \\
+						&= \{\sum_{i\leq n}(r_i\phi(x))(s_i\phi(y)|r_i,s_i\in R/I\} \\
+						&= \{\phi(x)\phi(y)\sum_{i\leq n}r_is_i|r_i,s_i\in R/I\} \\
+						&= \{\phi(xy) r|r\in R/I\}\\
+						&= (\phi(xy))_{R/I}
+	\end{align}
+\subqed1 
+\subclaim2 Let $\phi:R_1\twoheadrightarrow R_2$ be a ringhomorphism and $I_1, I_2$ ideals of $R_2$. Then $\inv{\phi}(I_1 I_2) \supseteq \inv{\phi}(I_2)\inv{\phi}(I_1)$.
+\subproof Let $x\in \inv{\phi}(I_1)\inv{\phi}(I_2)$ such that $x = ab$ with $a\in \inv{\phi}(I_1)$ and $b\in\inv{\phi}(I_2)$. Hence, $\phi(x)=\phi(ab)=\phi(a)\phi(b)\in I_1I_2$. Therefore, $x\in \phi^{-1}(I_1I_2)$.
+
+%''$\subseteq$'' Let $x\in \inv{\phi}(I_1I_2)$. Then $\phi(x)\in I_1I_2$ and by definition $\phi(x)= ab$ for $a\in I_1$ and $b\in I_2$. Hence, 
+%\begin{align}
+%	x\in \inv{\phi}(ab)&\subseteq \{cd|\phi(c)\in I_1 \wedge \phi(d)\in I_2\}\\
+%			   &=\{cd|c\in\inv{\phi}(I_1)\wedge d\in\inv{\phi}(I_2)\} \\
+%			   &\subseteq \inv{\phi}(I_1)\inv{\phi}(I_2)
+%\end{align}
+\subqed2
+
+	As we have $xy\in I$ we can now conclude
+	\begin{align}
+		I=\inv{\phi}((0)_{R/I})\supseteq \inv{\phi}((\phi(xy))_{R/I}) &= \inv{\phi}(\mathfrak{J}_x\mathfrak{J}_y) \\
+							&\supseteq \phi^{-1}(\mathfrak{J}_x)\inv{\phi}(\mathfrak{J}_y)\\
+							&= J_1J_2
+	\end{align}
+	Clearly $J_1J_2=\{\sum_{i\leq n }a_ib_i|a_i\in J_1\wedge b_i\in J_2\}$ is finitely generated as $J_1$ and $J_2$ are.
+\end{proof}	
+\teilaufgabe{c}
+\end{document}
