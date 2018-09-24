@@ -17,6 +17,8 @@
 \newcommand{\p}{\mathfrak{p}}
 \newcommand{\nr}{\mathfrak{N}}
 \newcommand{\im}{\mathrm{im}}
+\newcommand{\lead}{\mathrm{lead}}
+\newcommand{\codeg}{\mathrm{deg}}
 \makeatletter
 \def\fall#1{\forall #1\@ifnextchar\bgroup{\,,\fall}{:\,}}
 \makeatother
@@ -95,12 +97,16 @@
 \newtheorem{axiom}[thm]{Axiom}
 \theoremstyle{remark}
 \newtheorem{remark}[thm]{Remark}
+\newtheorem*{silentremark}{Remark}
 \newtheorem{example}[thm]{Example}
 
 \title{Homework Nr.1}
 \author{Philipp Stassen}
 \begin{document}
 \maketitle
+\begin{silentremark}
+	In this solution proposals a ring is always meant to be a commutative ring with $1$.
+\end{silentremark}
 \section*{7.1}
 \aufgabe{26} Let $K$ be a field and $\nu:K^{\times}\rightarrow\Z$ be a discrete valuation on $K$. Let $R = \{x\in K^{\times} | v(x) \geq 0\}$.
 
@@ -268,6 +274,40 @@ Let $R$ be a local ring. Let $\m$ be the maximal ideal of $R$.
 
 \end{proof}
 \aufgabe4
+\claim If $R$ is noetherian then so is $R[[X]]$. In addition to that we define 
+\begin{align}
+	\codeg\left(\sum_{i=0}^{\infty}r_iX^i\right):=\min\{i\in\N|r_i\neq 0\}.
+\end{align}
+\begin{silentdefn}
+	For any power series we define $\lead(a_k+a_{k+1}X+...):=a_k$ to be the minimal nonzero coefficient. Furthermore for any ideal $I\subseteq R[[X]]$ let
+	\begin{align}
+		&L:=\{\lead(P)|P\in I\} \\
+		&L_d :=\{\lead(P)|P\in I \wedge \codeg(P)=d\}\cup \{0\} \quad\forall{d\geq 1}
+	\end{align}
+\end{silentdefn}
+\subclaim1 For every $d\geq 1$ $L_d$ is an ideal, i.e. $\fall{a,b\in L_d}{r\in R}ar-b\in L_d$.
+\subproof
+Let $a,b\in L_d$ and $r\in R$. Wlog $ar-b\neq 0$, otherwise there is nothing to show. Take $P,Q\in I$ such that $\lead(P)=a$ resp. $\lead(Q)=b$. Then we have $\lead(rP-Q)=ar-b$. \subqed1
+\subclaim2 $L$ is an ideal.
+\subproof
+Let $a,b\in L$ and $r\in R$. Again we may assume that wlog $ar-b\neq 0$. As $a,b\in L$ we can take $P,Q\in I$ such that $\lead(P)=a$ respectively $\lead(Q)=b$. Furthermore, we define $d:=\codeg(P)$ and $e:=\codeg(Q)$. Therefore, it follows that $\lead(rPx^e - Qx^d) = ar-b$ \subqed2
+\begin{proof}[proof of \underline{claim}]
+	As $R$ is noetherian we have that $L$ and all the $L_d$ are finitely generated; let $\{a_1,...,a_n\}$ and $\{a_{d,1},...,a_{d,n_d}\}$ be generators for $L$ and $L_d$. Choose $P_i,Q_{d,i}\in I$ such that $\lead(P_i)=a_i$, respectively $\codeg(Q_{d,i})=d$ and $\lead(Q_{d,i})=a_{d,i}$. We define $e_i:= \codeg(P_i)$, $N:=\max_{i=1}^ne_i$ and finally
+	\begin{align}
+		I':=\{P_i,|1\leq i \leq n\}\cup\{Q_{d,i}| 1 \leq d\leq N, 1\leq i \leq n_d\}.
+	\end{align}
+	Clearly $I'$ is finitely generated and $I'\subseteq I$. It remains to show that $I'= I$.
+\subclaim3 $I\subseteq I'$
+Assume there was $P\in I$ such that $P\notin I'$; wlog $P$ is of minimal codegree $d$.
+
+\textbf{Case 1:} $d \neq 0$
+
+Let $a = \lead(P) \in L$ then $a = \sum_{i=k}^ma_ir_i$ with $r_i\in R$ and $k\leq m$ being the minimal nonzero coefficient. We define
+\begin{align}
+	Q = x^{d-e_i}P_i
+\end{align}
+Now clearly 
+\end{proof} 
 \aufgabe5
 Let $M$ be a noetherian $R$-module and $\varphi: M\rightarrow M$ an $R$-module endomorphism of $M$.
 \begin{silentlem}
@@ -344,7 +384,7 @@ This implies that $\inv{f}(M_1)\subseteq ...$ is an increasing sequence in $M'$ 
 \caption{}\label{Ex.6Diagram}
 \end{figure}
 
-Let $x\in M_n$. As $g\restriction_{M_N} \twoheadrightarrow g(M_n)$ there exists $y\in M_N$ such that $g(y) = g(x)$ (see also \cref{Ex.6Diagram}). It follows that $x-y\in \ker(g)\cap M_n$. As $\mathcal{S}$ is exact we have that $x-y\in\im(f)\cap M_n$ and thus may consider $f^{-1}(x-y)\in M_n = M_N$. As $f$ is injective we have that $f(\inv{f}(x-y))= x-y \in M_N$. But this means that $x = y + (x-y) \in M_N$ and as $x\in M_n$ was arbitrary we can conclude $M_n\subset M_N$.
+Let $x\in M_n$. As $g\restriction_{M_N} \twoheadrightarrow g(M_n)$ there exists $y\in M_N$ such that $g(y) = g(x)$ (see also \cref{Ex.6Diagram}). It follows that $x-y\in \ker(g)\cap M_n$. As $\mathcal{S}$ is exact we have that $x-y\in\im(f)\cap M_n$ and thus may consider $f^{-1}(x-y)\in M'_n = M'_N$. As $f$ is injective we have that $f(\inv{f}(x-y))= x-y \in M_N$. But this means that $x = y + (x-y) \in M_N$ and as $x\in M_n$ was arbitrary we can conclude $M_n\subset M_N$.
 \end{proof}
 
 \aufgabe{11}
@@ -399,4 +439,115 @@ Let $R$ be a commutative ring in which all prime ideals are finitely generated.
 	Clearly $J_1J_2=\{\sum_{i\leq n }a_ib_i|a_i\in J_1\wedge b_i\in J_2\}$ is finitely generated as $J_1$ and $J_2$ are.
 \end{proof}	
 \teilaufgabe{c}
+\begin{silentremark}
+	Let $R$ be a ring and $I$ an ideal. Then $I$ can be naturally viewed as a $R$-module by simply interpreting the ring multiplication as module product. Indeed, as ideals are abelian groups in $+$ and closed under multiplication they satisfy the $R$ module axioms.
+\end{silentremark}
+Recall that for ideals $I,J$ of some ring $R$ with $J\supset I$ we have that $J/I$ is an ideal of $R/I$ by the \emph{third isomorphism theorem for rings}\footnote{DF § 7.3 Theorem 8 (2)}. Hence, $J/I$ always forms an abelian group with the induced binary operation $+_{R/I}$.
+
+	\claim $I/J_1J_2$ is a finitely generated $R/I$-submodule of $J_1/J_1J_2$.
+\begin{proof}
+	It suffices to prove that $J_1/J_1J_2$ is a f.g. $R/I$ module. Indeed, as $R/I$ is noetherian we can deduce by a previous exercise\footnote{DF §15.1 Exercise 8} that $I/J_1J_2 \subset J_1/J_1J_2$ is f.g..
+
+	We define an action on $J_1/J_1J_2$
+	\begin{align}
+		\star:R/I\times J_1/J_1J_2 \rightarrow J_1/J_1J_2 \\
+		[r]_I\star[j]_{J_1J_2} := [r \cdot j]_{J_1J_2}
+	\end{align}
+	where ''$\cdot$'' denotes the ring-multiplication in $R$.
+	\subclaim1 $\star$ is well defined.
+	\subproof We have for $i\in I$ and $l\in J_1J_2$
+	\begin{align}
+		[r+i]_I\star[j+l]_{J_1J_2} &= [(r+i)\cdot (j+l)]_{J_1J_2}\\
+					   &= [r\cdot j + r\cdot l + i\cdot j + i\cdot l]_{J_1J_2}\\
+					   &= [r\cdot j]_{J_1J_2}.
+	\end{align}
+	The last inequality follows from the fact that $r\cdot l, i\cdot j, i\cdot l \in J_1J_2$ \subqed1
+	\subclaim2 $J_1/J_1J_2$ is a $R/I$-module
+	\subproof
+	\begin{enumerate}
+		\item As $J_1$ and $J_1J_2$ are ideals in $R$ we have that $(J_1/J_1J_2,+_{R/I})$ is abelian.
+		\item for $[r]_I,[s]_I\in R/I$ and $j\in J_1/J_1J_2$ we have 
+			\begin{align}
+				([r]_I+[s]_I)\star [j]_{J_1J_2} &= [r+s]_I\star[j]_{J_1J_2} \\
+								&= [(r+s)\cdot j]_{J_1J_2} \\
+								&= [r\cdot j]_{J_1J_2}+[s\cdot j]_{J_1J_2} \\
+								&= [r]_I\star[j]_{J_1J_2}+[s]_I\star[j]_{J_1J_2}
+			\end{align}
+		\item for $[r]_I,[s]_I\in R/I$ and $j\in J_1/J_1J_2$ we have
+			\begin{align}
+				([r]_I\cdot_{R/I}[s]_I)\star [j]_{J_1J_2} &= [r\cdot s]_I\star[j]_{J_1J_2} \\
+								&= [(r\cdot s)\cdot j]_{J_1J_2} \\
+								&= [r\cdot (s\cdot j)]_{J_1J_2} \\
+								&= [r]_I\star[s\cdot j]_{J_1J_2}\\
+								&= [r]_I\star([s]_I\star [j]_{J_1J_2})
+			\end{align}
+		\item for $[r]_I\in R/I$ and $j,l\in J_1/J_1J_2$ we have
+			\begin{align}
+				[r]_I\star ([j]_{J_1J_2}+[l]_{J_1J_2}) &= [r]_I\star[j+l]_{J_1J_2} \\
+								       &= [(r)\cdot (j+l)]_{J_1J_2} \\
+								&= [r\cdot j]_{J_1J_2}+[r\cdot l]_{J_1J_2} \\
+								&= [r]_I\star[j]_{J_1J_2}+[r]_I\star[l]_{J_1J_2}
+			\end{align}
+		\item for $[j]_{J_1J_2}\in J_1/J_1J_2$
+			\begin{align}
+				[1]_I \star [j]_{J_1J_2} = [1\cdot j]_{J_1J_2} = [j]_{J_1J_2}.
+			\end{align}
+	\end{enumerate}
+	\subqed2
+	\subclaim3 $J_1/J_1J_2$ is finitely generated as $R/I$ module.
+	\subproof Let $\{g_1,..g_n\}$ be a set of generators for $J_1$ and $[j]_{J_1J_2}\in J_1/J_1J_2$ be arbitrary. It follows that 
+	\begin{align}
+		[j]_{J_1J_2}&=[\sum_{i=1}^{n}r_i\cdot g_i]_{J_1J_2}\\
+			    &= \sum_{i=1}^{n}[r_i\cdot g_i]_{J_1J_2}\\
+			    &=\sum_{i=1}^{n}[r_i]_I\star[g_i]_{J_1J_2}.
+	\end{align}
+	Hence, $\{[g_1]_{J_1J_2},...,[g_n]_{J_1J_2}\}$ is a generating set for $J_1/J_1J_2$. Therefore, $J_1/J_1J_2$ is finitely generated. \subqed3
+
+	By the preliminary remarks we can conclude the claim
+\end{proof}
+\teilaufgabe{d} \claim (c) implies that $I$ is finitely generated over $R$.
+\begin{silentremark}
+	Recall that any $R/I$-module $M$ with action $\cdot: R/I\times M\rightarrow M$ can be transformed into a $R$-module in a canoncal way; use the projection $\phi:R\twoheadrightarrow R/I$ to define the action
+	\begin{align}
+		\cdot_R: R \times M \rightarrow M \\
+		r\cdot_R m := \phi(r)\cdot m
+	\end{align}
+	Clearly if $M$ is f.g. as $R/I$ module it is also f.g. as $R$ module. In fact the same elements that generate $M$ as $R/I$-module will also do it as $R$-module.
+\end{silentremark}
+\begin{lem}
+	Let $M$ be a $R$-module and $N\subset M$ be an $R$-submodule of $M$. 
+	If $N$ and $M/N$ are finitely generated then so is $M$.
+\end{lem}
+\begin{proof}
+	Observe that we have the exact sequence in \cref{Ex11Figure}.
+\begin{figure}[ht]
+\centering
+\begin{tikzcd}[row sep=5em, column sep = 2em]
+	0
+	\arrow[r,""]
+		&N
+		\arrow[r,"\iota"]
+			&M
+			\arrow[r,"\phi"]
+				&M/N
+				\arrow[r,""]
+					&0
+\end{tikzcd}
+\caption{Exact sequence}\label{Ex11Figure}
+\end{figure}
+	
+	Let $\{g_1,...,g_n\}$ be the generators for $N$ and $\{[h_1]_N,...,[h_m]_N\}$ for $M/N$. We can use the projection map $\phi:M\twoheadrightarrow M/N$ to get a set $\{\tilde{h}_1,...,\tilde{h}_m\}\subset M$ such that $\phi(\tilde{h}_1)=[h_1]_N$.
+
+	Now take $x\in M$ arbitrary, then $\phi(x)=[x]_N = \sum_{i\leq m}r_i[h_i]_N$. Define $x' := \sum_{i\leq m}r_i\tilde{h}_i\in M$, then clearly $x-x'\in \ker (\phi)=\im(\iota)$. Hence, we can write $x-x' = \sum_{j\leq n}r_i \iota(g_i)$.
+	All together we have $x = x' + x - x' = \sum_{i\leq m}r_i\tilde{h}_i\in M+ \sum_{j\leq n}r_i \iota(g_i)$ and as $x$ was arbitrary we can conclude that $M$ is generated by $\{\tilde{h}_1,...,\tilde{h}_m,\iota(g_1),...,\iota(g_n)\}$.
+\end{proof}
+We can now prove that $I$ is finitely generated over $R$.
+\begin{proof}[proof of claim]
+	We have that $I$ is a $R$-module and $J_1J_2$ is a $R$-submodule of $I$. As both - $J_1J_2$ and $I/J_1J_2$ are finitely generated as $R$-modules we can conclude by the previous lemma that $I$ is finitely generated.
+\end{proof}
+Assuming that $R$ is a ring in which all prime ideals are finitely generated we have shown (in \textbf{(a)}) that if there was an ideal which is not finitely generated then we would also have an inclusion maximal ideal which is \underline{not finitely generated}, which we named $I$. Now in \textbf{(d)} we deduced that such an $I$ would in fact be \underline{finitely generated}(\contradiction). Hence, we must reject the premise of \textbf{(a)} and end up with 
+\begin{align}
+	\text{The collections of ideals of } R \text{ that are not finitely generated is empty}.
+\end{align}
+For a ring this is equivalent to being noetherian. \qed
 \end{document}
