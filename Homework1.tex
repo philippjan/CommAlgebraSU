@@ -108,7 +108,7 @@
 	In this solution proposals a ring is always meant to be a commutative ring with $1$.
 \end{silentremark}
 \section*{7.1}
-\aufgabe{26} Let $K$ be a field and $\nu:K^{\times}\rightarrow\Z$ be a discrete valuation on $K$. Let $R = \{x\in K^{\times} | v(x) \geq 0\}$.
+\aufgabe{26} Let $K$ be a field and $\nu:K^{\times}\rightarrow\Z$ be a discrete valuation on $K$. Let $R = \{x\in K^{\times} | v(x) \geq 0\}\cup \{0\}$.
 
 \teilaufgabe{a} \claim $R$ is a subring of $K$ which contains the identity.
 \begin{proof}
@@ -263,14 +263,14 @@ Let $R$ be a local ring. Let $\m$ be the maximal ideal of $R$.
 
 	Note that - by taking the greatest common divisor - each $p\in K[X,\inv{d}]$ is of the form 
 	\begin{align}
-		p = P + p_n d^{-n} + ... + p_0 = P Qd^{-n}
+		p = P + p_n d^{-n} + ... + p_0 = Qd^{-n}
 	\end{align}
-	with $PQ \in K[X]$. 
+	with $P,Q \in K[X]$. 
 	Assume we had 
 	\begin{align}
-		\frac{1}{R} = \frac{PQ}{d^n}.
+		\frac{1}{R} = \frac{Q}{d^n}.
 	\end{align}
-	Hence, $1 = PQ \frac{R}{d^n}$. However, since $R$ is irreducible and $R\nmid d$ this is not possible. 
+	Hence, $1 = Q \frac{R}{d^n}$. However, since $R$ is irreducible and $R\nmid d$ this is not possible. 
 
 \end{proof}
 \aufgabe4
@@ -287,13 +287,13 @@ Similar to the ''degree'' of a polynomial one can define the ''degree'' of a pow
 \begin{silentdefn}
 	For any power series we define $\lead(a_k+a_{k+1}X+...):=a_k$ to be the minimal nonzero coefficient. Furthermore for any ideal $I\subseteq R[[X]]$ let
 	\begin{align}
-		&L:=\{\lead(P)|P\in I\} \\
+		&L:=\{\lead(P)|P\in I\}\cup\{0\} \\
 		&L_d :=\{\lead(P)|P\in I \wedge \codeg(P)=d\}\cup \{0\} \quad\forall{d\geq 1}
 	\end{align}
 \end{silentdefn}
 \subclaim1 For every $d\geq 1$ $L_d$ is an ideal, i.e. $\fall{a,b\in L_d}{r\in R}ar-b\in L_d$.
 \subproof
-Let $a,b\in L_d$ and $r\in R$. Wlog $ar-b\neq 0$, otherwise there is nothing to show. Take $P,Q\in I$ such that $\lead(P)=a$ resp. $\lead(Q)=b$. Then we have $\lead(rP-Q)=ar-b$. \subqed1
+Let $a,b\in L_d$ and $r\in R$. Wlog $ar-b\neq 0$, otherwise there is nothing to show. Take $P,Q\in I$ with $\deg(P)=\deg(Q)=d$ such that $\lead(P)=a$ resp. $\lead(Q)=b$. Then we have $\lead(rP-Q)=ar-b$. \subqed1
 \subclaim2 $L$ is an ideal.
 \subproof
 Let $a,b\in L$ and $r\in R$. Again we may assume that wlog $ar-b\neq 0$. As $a,b\in L$ we can take $P,Q\in I$ such that $\lead(P)=a$ respectively $\lead(Q)=b$. Furthermore, we define $d:=\codeg(P)$ and $e:=\codeg(Q)$. Therefore, it follows that $\lead(rPx^e - Qx^d) = ar-b$ \subqed2
@@ -305,7 +305,7 @@ Let $a,b\in L$ and $r\in R$. Again we may assume that wlog $ar-b\neq 0$. As $a,b
 	Clearly $I'$ is finitely generated and $I'\subseteq I$. It remains to show that $I'= I$.
 \subclaim3 $I\subseteq I'$.
 \subproof
-Assume there was $V\in I$ such that $V\notin I'$. Let $\codeg(V)=d$ and $\lead(V)=a$.
+Let $V\in I$ such that $\codeg(V)=d$ and $\lead(V)=a$.
 
 \textbf{Case 1:} $d\leq N$. Let $a=\sum_{i=1}^{n_d}r_ia_{d,i}$. Furthermore, let
 \begin{align}
@@ -322,7 +322,7 @@ In conclusion, we reduced the problem to Case 2 as we may assume without loss of
 \begin{align}
 	P'_d=\sum_{i=1}^nr_{i,d}P_iX^{d-e_i}
 \end{align}
-and hence get $P'_d\in I'$, $\codeg(P'_d)= d$ and $\lead(P'_d)=a$.
+and hence get $P'_d\in I'$, $\codeg(P'_d)= d$ and $\lead(P'_d)=a_d$.
 We can proceed as before to get an infinite series
 \begin{align}
 	\sum_{j=d}^{\infty}P'_j&=\sum_{j=d}^{\infty}\sum_{i=1}^nr_{i,d}P_iX^{j-e_i}\\
@@ -382,7 +382,7 @@ Let $M''_1\subseteq M''_2\subseteq ...$ be an increasing sequence of $R$-submodu
 ''$\Longleftarrow$'' Let $M'$ and $M''$ be noetherian $R$-modules.
 
 Let $M_1\subseteq M_2 \subseteq ...$ be an increasing sequence of submodules of $M$.
-This implies that $\inv{f}(M_1)\subseteq ...$ is an increasing sequence in $M'$ and $g(M_1)\subseteq$ is an increasing sequence in $M''$. The latter ones are eventually constant as $M'$ and $M''$ are noetherian; let us assume from index $N'$ resp. $N''$ onwards. We define $N:=\max(N',N'')$. If we prove that $M_n\subseteq M_N$ for any $n\in\N$ we can conclude that $M_1\subseteq ...$ is eventually constant and thus $M$ noetherian (as the sequence was arbitrary).
+This implies that $\inv{f}(M_1)\subseteq ...$ is an increasing sequence in $M'$ and $g(M_1)\subseteq...$ is an increasing sequence in $M''$. The latter ones are eventually constant as $M'$ and $M''$ are noetherian; let us assume from index $N'$ resp. $N''$ onwards. We define $N:=\max(N',N'')$. If we prove that $M_n\subseteq M_N$ for any $n\geq N$ we can conclude that $M_1\subseteq ...$ is eventually constant and thus $M$ noetherian (as the sequence was arbitrary).
 \begin{figure}[ht]
 \centering
 \begin{tikzcd}[row sep=2em, column sep = 3em, elementof/.style = {draw=none,"\in" description,sloped}, contained/.style = {draw=none,"\subseteq" description,sloped}]
@@ -414,7 +414,7 @@ Let $x\in M_n$. As $g\restriction_{M_N} \twoheadrightarrow g(M_n)$ there exists 
 
 \aufgabe{11}
 Let $R$ be a commutative ring in which all prime ideals are finitely generated.
-\teilaufgabe{a} \claim If the collection of ideals that are not finitely generated is nonempty, then it contains a maximal element $I$. Then $R/I$ is a noetherian ring.
+\teilaufgabe{a} \claim If the collection of ideals that are not finitely generated is nonempty, then it contains a maximal element $I$. As a consequence we have that $R/I$ is a noetherian ring.
 \begin{proof}
 	Let $L:=\{J\subset R | J \text{ is an not f.g. ideal}\}$. We want to use the \emph{Lemma of Zorn} to deduce that $L$ possesses a maximal element. Clearly $L$ is partially ordered by $\subset$. We need to find an upper bound in $L$ for every chain in $L$. Let $J_1\subset J_2 \subset ...$ be a chain in $L$. Clearly $\bigcup_{i>0}J_i$ is an upper bound; it remains to show that $\bigcup_{i>0}J_i\in L$.  
 	\subclaim1 $\bigcup_{i>0}J_i$  is an ideal.
@@ -427,7 +427,7 @@ Let $R$ be a commutative ring in which all prime ideals are finitely generated.
 	By \emph{Zorn's Lemma} we can conclude that $L$ possesses a maximal element; let us call it $I$.
 
 	As $I$ is an ideal and $R$ a ring we have a canonical Ringhomorphism $\phi:R\twoheadrightarrow R/I$ that provides a Ring structure on $R/I$.
-	Now let $J\subseteq R/I$ be a non-trivial ideal. Then $\inv{\phi}(J) \supset I$. As $I$ is maximal in $L$ we have that $\inv{\phi}(J)$ is either finitely generated or equal to $I$. However, $\inv{\phi}(J)$ is not possible as then $J = (0)$ would be trivial. Hence, $\inv{\phi}(J)$ must be f.g. and therefore also $J$ is. 
+	Now let $J\subseteq R/I$ be a non-trivial ideal. Then $\inv{\phi}(J) \supset I$. As $I$ is maximal in $L$ we have that $\inv{\phi}(J)$ is either finitely generated or equal to $I$. However, $\inv{\phi}(J)=I$ is not possible as then $J = (0)$. Hence, $\inv{\phi}(J)$ must be f.g. and therefore also $J$ is. 
 	As every ideal of $R/I$ is finitely generated we have that $R/I$ is noetherian.
 \end{proof}
 	\teilaufgabe{b}\claim There are f.g. ideals $J_1$ and $J_2$ such that $J_{1/2}\supseteq I$ and $J_1J_2\subseteq I$.
@@ -438,7 +438,7 @@ Let $R$ be a commutative ring in which all prime ideals are finitely generated.
 	\subproof 
 	\begin{align}
 		\mathfrak{J}_x\mathfrak{J}_y 	&= \{\sum_{i\leq n}a_ib_i|a_i\in \mathfrak{J}_x \wedge b_i\in \mathfrak{J}_y\} \\
-						&= \{\sum_{i\leq n}(r_i\phi(x))(s_i\phi(y)|r_i,s_i\in R/I\} \\
+						&= \{\sum_{i\leq n}(r_i\phi(x))(s_i\phi(y))|r_i,s_i\in R/I\} \\
 						&= \{\phi(x)\phi(y)\sum_{i\leq n}r_is_i|r_i,s_i\in R/I\} \\
 						&= \{\phi(xy) r|r\in R/I\}\\
 						&= (\phi(xy))_{R/I}
@@ -461,7 +461,7 @@ Let $R$ be a commutative ring in which all prime ideals are finitely generated.
 							&\supseteq \phi^{-1}(\mathfrak{J}_x)\inv{\phi}(\mathfrak{J}_y)\\
 							&= J_1J_2
 	\end{align}
-	Clearly $J_1J_2=\{\sum_{i\leq n }a_ib_i|a_i\in J_1\wedge b_i\in J_2\}$ is finitely generated as $J_1$ and $J_2$ are.
+	Clearly $J_1J_2=(\{\sum_{i\leq n }a_ib_i|a_i\in J_1\wedge b_i\in J_2\})_R$ is finitely generated as $J_1$ and $J_2$ are.
 \end{proof}	
 \teilaufgabe{c}
 \begin{silentremark}
@@ -568,7 +568,7 @@ Recall that for ideals $I,J$ of some ring $R$ with $J\supset I$ we have that $J/
 \end{proof}
 We can now prove that $I$ is finitely generated over $R$.
 \begin{proof}[proof of claim]
-	We have that $I$ is a $R$-module and $J_1J_2$ is a $R$-submodule of $I$. As both - $J_1J_2$ and $I/J_1J_2$ are finitely generated as $R$-modules we can conclude by the previous lemma that $I$ is finitely generated.
+	We have that $I$ is a $R$-module and $J_1J_2$ is a $R$-submodule of $I$. As both - $J_1J_2$ and $I/J_1J_2$ - are finitely generated as $R$-modules we can conclude by the previous lemma that $I$ is finitely generated.
 \end{proof}
 Assuming that $R$ is a ring in which all prime ideals are finitely generated we have shown (in \textbf{(a)}) that if there was an ideal which is not finitely generated then we would also have an inclusion maximal ideal which is \underline{not finitely generated}, which we named $I$. Now in \textbf{(d)} we deduced that such an $I$ would in fact be \underline{finitely generated}(\contradiction). Hence, we must reject the premise of \textbf{(a)} and end up with 
 \begin{align}
